@@ -15,4 +15,4 @@ app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
 
 app.use('/', apiRouter)
 
-app.listen(process.env.port)
+app.listen($PORT)
