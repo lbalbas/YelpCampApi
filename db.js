@@ -11,23 +11,30 @@ const database =  async(operations, response) => {
 			serverApi: ServerApiVersion.v1 
 		});
 		const db = client.db("yelpCamp");
-		console.log(operations)
-		await operations(db);
-		return client.close();
+		await operations(db)
+		return client.close()
 	}catch(error){
-		console.log(error)
-		return response.status(500).json({message: "Couldn't connect to Database", error}).end();
+		if(!response.headersSent){
+			console.log(error);
+			return response.status(500).json({message: "Couldn't connect to Database", error});
+		}
 	}
 }
 
 export default database;
 
-export function checkSession(user,res){
-	if(user){
-	 	database(async (db)=>{
-			let count = await db.collection("users").countDocuments({username:user})
-			return count == 1 ? true : false
-		},res)
+export const checkSession = async(user,res) => {
+	try{
+	 	const client = await MongoClient.connect(url,{ 
+					useNewUrlParser: true, 
+					useUnifiedTopology: true, 
+					serverApi: ServerApiVersion.v1 
+				});
+		const db = client.db("yelpCamp");
+		let count = await db.collection("users").countDocuments({username:user})
+		return count == 1 ? true : false
+	}catch(error){
+		console.log(error);
+		return response.status(500).json({message: "Couldn't connect to Database", error});
 	}
-	return false;
 }

@@ -3,8 +3,8 @@ import database from '../db.js';
 import {ObjectID} from 'mongodb'
 const getCampgroundsRoute = express.Router();
 
-getCampgroundsRoute.get('/', (req, res)=>{
-	database(async (db) => {
+getCampgroundsRoute.get('/', async(req, res)=>{
+	return await database(async (db) => {
 		var query = {};
 
 		if(req.query.id){

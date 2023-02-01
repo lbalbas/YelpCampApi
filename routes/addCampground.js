@@ -10,7 +10,7 @@ addCampgroundRoute.post('/', (req,res)=>{
       price: req.body.price,
       image: req.body.image,
       desc: req.body.desc,
-      submitter: req.body.cookies.session,
+      submitter: req.cookies.session,
   };
   
   database(async (db) => {
