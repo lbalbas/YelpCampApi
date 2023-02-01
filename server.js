@@ -12,7 +12,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true, 
  mongod: true}))
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}))
+app.use(cors({credentials: true, origin: 'https://fanciful-snickerdoodle-e4b9a0.netlify.app'}))
 
 app.use('/', apiRouter)
 
